@@ -13,6 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 import paba.b.room.database.daftarBelanja
 import paba.b.room.database.daftarBelanjaDB
 
@@ -89,6 +90,20 @@ class MainActivity : AppCompatActivity() {
             adapterDaftar = adapterDaftar(arDaftar)
             _rvItems.layoutManager = LinearLayoutManager(this)
             _rvItems.adapter = adapterDaftar
+
+            adapterDaftar.setOnItemClickCallback(
+                object : adapterDaftar.OnItemClickCallback {
+                    override fun delData(dtBelanja: daftarBelanja) {
+                        CoroutineScope(Dispatchers.IO).async {
+                            DB.fundaftarBelanjaDAO().delete(dtBelanja)
+                            val daftar = DB.fundaftarBelanjaDAO().selectAll()
+                            withContext(Dispatchers.Main){
+                                adapterDaftar.isiData(daftar)
+                            }
+                        }
+                    }
+                }
+            )
 
         }
 
