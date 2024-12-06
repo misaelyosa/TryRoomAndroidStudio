@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 import paba.b.room.database.daftarBelanja
 import paba.b.room.database.daftarBelanjaDB
 import paba.b.room.helper.DateHelper.getCurrentDate
@@ -42,6 +43,9 @@ class TambahDaftar : AppCompatActivity() {
                         jumlah = _etJumlah.text.toString()
                     )
                 )
+                withContext(Dispatchers.Main) {
+                    finish()
+                }
             }
         }
     }

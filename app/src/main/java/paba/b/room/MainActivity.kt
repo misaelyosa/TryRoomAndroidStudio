@@ -1,10 +1,19 @@
 package paba.b.room
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import paba.b.room.database.daftarBelanja
+import paba.b.room.database.daftarBelanjaDB
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,5 +25,21 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        DB = daftarBelanjaDB.getDatabase(this)
+
+        val _fabAdd = findViewById<FloatingActionButton>(R.id.fabAdd)
+        val _rvItems = findViewById<RecyclerView>(R.id.rvItems)
+
+        _fabAdd.setOnClickListener{
+            startActivity(Intent(this, TambahDaftar::class.java))
+        }
+
+        super.onStart()
+        CoroutineScope(Dispatchers.Main).async {
+            val daftarBelanja = DB.fundaftarBelanjaDAO().selectAll()
+            Log.d("data ROOM", daftarBelanja.toString())
+        }
     }
+
+        private lateinit var DB : daftarBelanjaDB
 }
