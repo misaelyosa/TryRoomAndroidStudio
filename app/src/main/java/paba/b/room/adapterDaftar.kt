@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast.Callback
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.RoomDatabase
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import paba.b.room.database.daftarBelanja
 
 class adapterDaftar (private val daftarBelanja : MutableList<daftarBelanja>):
@@ -55,8 +56,8 @@ class adapterDaftar (private val daftarBelanja : MutableList<daftarBelanja>):
         var _tvTanggal = itemView.findViewById<TextView>(R.id.tvTanggal)
         var _tvJumlah = itemView.findViewById<TextView>(R.id.tvJumlah)
 
-        var _btnEdit = itemView.findViewById<Button>(R.id.btnEdit)
-        var _btnDelete = itemView.findViewById<Button>(R.id.btnDelete)
+        var _btnEdit = itemView.findViewById<FloatingActionButton>(R.id.btnEdit)
+        var _btnDelete = itemView.findViewById<FloatingActionButton>(R.id.btnDelete)
     }
 
     interface OnItemClickCallback {

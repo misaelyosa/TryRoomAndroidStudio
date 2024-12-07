@@ -76,6 +76,9 @@ class TambahDaftar : AppCompatActivity() {
                     isi_jumlah = _etJumlah.text.toString(),
                     pilihid = iID
                 )
+                withContext(Dispatchers.Main) {
+                    finish()
+                }
             }
         }
     }
